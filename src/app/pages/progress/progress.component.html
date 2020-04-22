@@ -1,1 +1,19 @@
-<p>progress works!</p>
+<mat-progress-bar mode="determinate" [value]="progreso1"></mat-progress-bar>
+<br>
+<mat-progress-bar mode="determinate" [value]="progreso2"></mat-progress-bar>
+
+<hr>
+<div class="row">
+    <div class="col-6">
+        <mat-card>
+            <app-incrementador (actualizarValor)="progreso1=$event" nombre="Process 1" [progreso]="progreso1"></app-incrementador>
+        </mat-card>
+
+    </div>
+    <div class="col-6">
+        <mat-card>
+            <app-incrementador (actualizarValor)="progreso2=$event" nombre="Process 2" [progreso]="progreso2"></app-incrementador>
+        </mat-card>
+
+    </div>
+</div>

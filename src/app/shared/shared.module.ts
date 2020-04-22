@@ -10,21 +10,19 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 
 @NgModule({
   declarations: [
-    NopagefoundComponent,
     HeaderComponent,
     SidebarComponent,
     BreadcrumsComponent,
-    NopagefoundComponent
+    NopagefoundComponent,
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    NopagefoundComponent,
     HeaderComponent,
     SidebarComponent,
     BreadcrumsComponent,
-    NopagefoundComponent
+    NopagefoundComponent,
   ]
 })
 export class SharedModule { }
