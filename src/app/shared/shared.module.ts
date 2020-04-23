@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 // Componentes compartidos
 import { HeaderComponent } from './header/header.component';
@@ -16,7 +17,8 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
     NopagefoundComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [
     HeaderComponent,
