@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { SettingsService } from './services/settings/settings.service';
 
 @Component({
@@ -7,7 +8,6 @@ import { SettingsService } from './services/settings/settings.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'admin-pro';
 
   // Lamma al constructor del LocalStorage
   constructor(public _ajustes: SettingsService) {

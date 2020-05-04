@@ -1,22 +1,24 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
 
 // Routes
 import { AppRoutingModule } from './app-routing.module';
 
 // Modules
 import { PagesModule } from './pages/pages.module';
-import { MaterialModule } from './material/material.module';
+import { MaterialModule } from './material.module';
+import { ServiceModule } from './services/service.module';
 
 // Components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 
-// Services
-import { SettingsService } from './services/settings/settings.service';
+// Temporal
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+// Alertas
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 
@@ -29,13 +31,21 @@ import { SettingsService } from './services/settings/settings.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    PagesModule,
-    MaterialModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    // Pages
+    PagesModule,
+    // Servicios
+    ServiceModule,
+    MaterialModule,
+    // Alertas
+    SweetAlert2Module.forRoot(),
   ],
-  providers: [SettingsService],
-  bootstrap: [AppComponent]
+  providers: [],
+  bootstrap: [AppComponent],
+  // Permite mostar bien con Web Components
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

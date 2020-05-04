@@ -11,6 +11,9 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 
+// Guards
+import { LoginGuard } from '../services/guards/login.guard';
+
 
 
 const pageRoutes: Routes = [
@@ -18,6 +21,7 @@ const pageRoutes: Routes = [
   {
     path: '',
     component: PagesComponent,
+    canActivate: [ LoginGuard],
     children: [
       // Se utiliza ?data para mandar variables a las rutas
       { path: 'dashboard', component: DashboardComponent, data: { titulo: 'Dashboard' } },
