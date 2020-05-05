@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../services/service.index';
+import { Usuario } from '../../models/usuario';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +10,14 @@ import { UsuarioService } from '../../services/service.index';
 })
 export class HeaderComponent implements OnInit {
 
+  usuario: Usuario;
+
   constructor(public _usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
+    this.usuario = this._usuarioService.usuario;
+    // Permite guardar los datos del user al cargar la pagina
+    this.usuario = JSON.parse(localStorage.getItem('usuario'));
   }
 
- 
 }

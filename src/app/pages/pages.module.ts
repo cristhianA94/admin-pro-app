@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Routes
 import { PagesRoutingModule } from './pages-routing.module';
 
 // Componentes compartidos
 import { SharedModule } from '../shared/shared.module';
+import { PipesModule } from '../pipes/pipes.module';
+import { MaterialModule } from '../material.module';
 
 // Ng2 Charts
 import { ChartsModule } from 'ng2-charts';
-// Material
-import { MaterialModule } from '../material.module';
 
 // Componentes
 import { PagesComponent } from './pages.component';
@@ -25,6 +25,7 @@ import { GraficaDonaComponent } from '../components/grafica-dona/grafica-dona.co
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -38,18 +39,22 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     AccountSettingsComponent,
     PromesasComponent,
     RxjsComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     // Material
     MaterialModule,
+    // Charts
+    ChartsModule,
     // Componentes compartidos
     SharedModule,
     // Routas de pages
     PagesRoutingModule,
-    // Charts
-    ChartsModule
+    // Pipes
+    PipesModule
   ],
   exports: [
     DashboardComponent,

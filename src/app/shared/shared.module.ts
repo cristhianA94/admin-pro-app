@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 // Componentes compartidos
+import { PipesModule } from '../pipes/pipes.module';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { BreadcrumsComponent } from './breadcrums/breadcrums.component';
@@ -19,7 +20,8 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    PipesModule
   ],
   exports: [
     HeaderComponent,

@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     // Resetea los valores del form
-    this.registerForm.reset();
+    //this.registerForm.reset();
   }
 
   registerFormBuild(): void {

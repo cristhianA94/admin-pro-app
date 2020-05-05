@@ -34,12 +34,13 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    MaterialModule,
+    // Routes
     AppRoutingModule,
     // Pages
     PagesModule,
     // Servicios
     ServiceModule,
-    MaterialModule,
     // Alertas
     SweetAlert2Module.forRoot(),
   ],

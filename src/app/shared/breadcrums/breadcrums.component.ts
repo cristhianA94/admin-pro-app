@@ -16,21 +16,24 @@ export class BreadcrumsComponent implements OnInit {
   // ?Meta: sirve para agregar metadatos en HTML
   constructor(private router: Router,
     private title: Title,
-    private meta: Meta) {
-    this.getDataRoute().subscribe((data) => {
-      //console.log(data);
-      this.titulo = data.titulo;
-      // Sete el nombre del titulo en el lado de la pestaña del navegador
-      this.title.setTitle(this.titulo)
-      // Crea la estructura del metadato:
-      // <meta name="desciption" content="textoX">
-      const metaTag: MetaDefinition = {
-        name: 'description',
-        content: this.titulo
-      }
-      // Crea el metadato
-      this.meta.updateTag(metaTag);
-    })
+    private meta: Meta
+  ) {
+
+    this.getDataRoute()
+      .subscribe((data) => {
+        //console.log(data);
+        this.titulo = data.titulo;
+        // Sete el nombre del titulo en el lado de la pestaña del navegador
+        this.title.setTitle(this.titulo)
+        // Crea la estructura del metadato:
+        // <meta name="desciption" content="textoX">
+        const metaTag: MetaDefinition = {
+          name: 'description',
+          content: this.titulo
+        }
+        // Crea el metadato
+        this.meta.updateTag(metaTag);
+      })
   }
 
   ngOnInit(): void {

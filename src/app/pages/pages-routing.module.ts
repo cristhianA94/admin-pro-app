@@ -13,6 +13,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 
 // Guards
 import { LoginGuard } from '../services/guards/login.guard';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -21,7 +22,7 @@ const pageRoutes: Routes = [
   {
     path: '',
     component: PagesComponent,
-    canActivate: [ LoginGuard],
+    //canActivate: [ LoginGuard],
     children: [
       // Se utiliza ?data para mandar variables a las rutas
       { path: 'dashboard', component: DashboardComponent, data: { titulo: 'Dashboard' } },
@@ -30,6 +31,7 @@ const pageRoutes: Routes = [
       { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' } },
       { path: 'rxjs', component: RxjsComponent, data: { titulo: 'Rxjs' } },
       { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Ajustes del Tema' } },
+      { path: 'profile', component: ProfileComponent, data: { titulo: 'Perfil Usuario' } },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     ]
   },

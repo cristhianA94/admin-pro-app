@@ -11,8 +11,9 @@ export class SettingsService {
     tema: 'default'
   };
 
-  constructor(// Permite el acceso a todo el DOM
-    @Inject(DOCUMENT) private _document, ) {
+  constructor(
+    // Permite el acceso a todo el DOM
+    @Inject(DOCUMENT) private _document) {
     this.cargarAjustes();
   }
 
@@ -38,9 +39,10 @@ export class SettingsService {
   }
 
   aplicarTema(tema: string) {
+
     let url = `assets/css/colors/${tema}.css`;
     // Accede al atributo del elemento seleccionado
-    this._document.getElementById('tema').setAttribute('href', url)
+    this._document.getElementById('tema').setAttribute('href', url);
     //console.log(link);
 
     this.ajustes.tema = tema;

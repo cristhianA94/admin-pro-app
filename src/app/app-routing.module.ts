@@ -11,23 +11,33 @@ const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  // Redirige al cargar la app
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  // Carga las rutas hijas de modulo principal
-
-  // Lazy Load
-  //{ path:'', loadChildren:  './pages/pages.module#PagesModule'},
-  { path: '', loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule) },
+  // Carga las rutas hijas de modulo principal (Lazy Load)
+  {
+    path: '',
+    loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
+  },
   // Preload
-  //{path:'', loadChildren:  './pages/pages.module#PagesModule', data: {preload:true}},
-  
-  // Cualquier ruta diferente a las declaradas
+  /*  {
+     path: 'dashboard',
+     loadChildren: './pages/pages.module#PagesModule',
+     data: { preload: true }
+   }, */
+
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: NopagefoundComponent }
 ];
 
 @NgModule({
-  /// true, preloadingStrategy: PreloadAllModules
-  imports: [RouterModule.forRoot(routes, { useHash: true} )],
+  imports: [
+    RouterModule.forRoot(
+      routes,
+      {
+        useHash: true, // sirve para hosting
+        //preloadingStrategy: PreloadAllModules,
+        //enableTracing: true // Solo para debugg
+      }
+    )
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

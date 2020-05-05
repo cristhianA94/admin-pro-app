@@ -7,9 +7,9 @@ import {
   SidebarService,
   SharedService,
   UsuarioService,
+  LoginGuard
 } from './service.index';
 
-import { LoginGuard } from './guards/login.guard';
 
 @NgModule({
   declarations: [],

@@ -20,8 +20,8 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  recuerdame: boolean = false;
   email: string;
+  recuerdame: boolean = false;
 
   auth2: any;
 
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
 
   ngOnDestroy(): void {
     // Resetea los valores del form
-    this.loginForm.reset();
+    //this.loginForm.reset();
   }
 
   loginFormBuild(): void {
@@ -63,7 +63,9 @@ export class LoginComponent implements OnInit {
   }
 
   googleInit() {
+
     gapi.load('auth2', () => {
+
       this.auth2 = gapi.auth2.init({
         client_id: CLIENT_ID,
         cookie_policy: 'single_host_origin',
@@ -88,7 +90,6 @@ export class LoginComponent implements OnInit {
 
   // Sign In
   ingresar() {
-
 
     let usuario = new Usuario(
       null,
