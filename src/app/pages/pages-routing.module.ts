@@ -22,7 +22,7 @@ const pageRoutes: Routes = [
   {
     path: '',
     component: PagesComponent,
-    //canActivate: [ LoginGuard],
+    canActivate: [ LoginGuard],
     children: [
       // Se utiliza ?data para mandar variables a las rutas
       { path: 'dashboard', component: DashboardComponent, data: { titulo: 'Dashboard' } },

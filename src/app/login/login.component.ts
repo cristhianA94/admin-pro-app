@@ -36,6 +36,8 @@ export class LoginComponent implements OnInit {
     this.googleInit();
     // Retoma el email recordado
     this.email = localStorage.getItem('email') || '';
+
+    // Recuerda el check
     if (this.email.length > 1) {
       this.recuerdame = true;
     }
@@ -49,10 +51,11 @@ export class LoginComponent implements OnInit {
   }
 
   loginFormBuild(): void {
+
     this.loginForm = this.fb.group({
       email: ['', Validators.email],
       password: ['', Validators.required],
-      recuerdame: false
+      recuerdame: this.recuerdame
     });
 
   }
@@ -73,7 +76,6 @@ export class LoginComponent implements OnInit {
       });
 
       this.verificarSignIn(document.getElementById('btnGoogle'));
-
     });
   }
 

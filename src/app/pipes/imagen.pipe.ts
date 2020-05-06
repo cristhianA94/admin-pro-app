@@ -21,15 +21,15 @@ export class ImagenPipe implements PipeTransform {
 
     // Sino busca el tipo
     switch (tipo) {
-      case 'usuario':
+      case 'usuarios':
         url += '/usuarios/' + img;
         break;
 
-      case 'hospital':
+      case 'hospitales':
         url += '/hospitales/' + img;
         break;
 
-      case 'medico':
+      case 'medicos':
         url += '/medicos/' + img;
         break;
 

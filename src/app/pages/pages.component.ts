@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { UsuarioService } from '../services/service.index';
+import { Usuario } from '../models/usuario';
 
 // Llama a funcion del plugin assets/js/custom.js
 declare function init_Plugins();
@@ -11,11 +13,15 @@ declare function init_Plugins();
   ]
 })
 export class PagesComponent implements OnInit {
+  usuario: Usuario;
 
-  constructor() { }
+
+  constructor(public _usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
     init_Plugins();
+    this.usuario = this._usuarioService.usuario;
+    //this.usuario = JSON.parse(localStorage.getItem('usuario'));
   }
 
 }

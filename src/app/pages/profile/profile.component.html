@@ -1,0 +1,108 @@
+<div class="row animated fadeIn">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Perfil del usuario</h4>
+                <h6 class="card-subtitle">Nombre usuario</h6>
+                <form [formGroup]="updateUsuarioForm" (ngSubmit)="guardarCambios()" class="form-horizontal p-t-20">
+                    <div class="form-group row">
+                        <label for="exampleInputuname3" class="col-sm-3 control-label">Nombres*</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-user"></i></div>
+                                <input type="text" formControlName="nombres" class="form-control" placeholder="Nombres" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="exampleInputuname3" class="col-sm-3 control-label">Apellidos</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-user"></i></div>
+                                <input type="text" formControlName="apellidos" class="form-control" placeholder="Apellidos">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="exampleInputEmail3" class="col-sm-3 control-label">Email*</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-email"></i></div>
+                                <input type="email" formControlName="email" class="form-control" placeholder="Email" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row" *ngIf="!usuario.google">
+                        <label for="inputPassword4" class="col-sm-3 control-label">Password*</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-lock"></i></div>
+                                <input minlength="6" type="password" formControlName="password" class="form-control" placeholder="Password" required>
+
+                            </div>
+                            <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)" class="alert alert-danger form-danger" role="alert">
+                                <span *ngIf="f.password.errors.required">Contraseña requerida</span>
+                                <span *ngIf="f.password.errors.minlength">La contraseña debe tener al menos 6 caracteres</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row m-b-0">
+                        <div class="offset-sm-3 col-sm-9">
+                            <button type="submit" [disabled]="updateUsuarioForm.invalid" class="btn btn-info waves-effect waves-light">
+                <i class="ti-save"></i> Guardar
+              </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h4 class="card-title">Foto del usuario</h4>
+                <h6 class="card-subtitle">{{usuario.nombres +" "+ usuario.apellidos}}</h6>
+                <img *ngIf="!imgTemp" [src]="usuario.img | imagen" alt="Imagen usuario" class="w-75 mb-3" />
+                <img *ngIf="imgTemp" [src]="imgTemp " alt="Imagen usuario" class="w-75 mb-3" />
+                <input (change)="seleccionImg($event.target.files[0])" type="file">
+                <hr>
+                <div class="text-center">
+                    <button (click)="cambiarImg()" [disabled]="!imgSubir" type="submit" class="btn btn-block btn-info waves-effect waves-light">
+            <i class="ti-save"></i> Guardar
+          </button>
+
+                </div>
+            </div>
+
+            <!--  -->
+            <div class="card-body">
+                <h4 class="card-title">File Upload6</h4>
+                <label for="input-file-disable-remove">You can disable remove button</label>
+                <div class="dropify-wrapper">
+                    <div class="dropify-message"><span class="file-icon"></span>
+                        <p>Drag and drop a file here or click</p>
+                        <p class="dropify-error">Ooops, something wrong appended.</p>
+                    </div>
+                    <div class="dropify-loader"></div>
+                    <div class="dropify-errors-container">
+                        <ul></ul>
+                    </div>
+                    <input type="file" id="input-file-disable-remove" class="dropify" data-show-remove="false">
+                    <div class="dropify-preview"><span class="dropify-render"></span>
+                        <div class="dropify-infos">
+                            <div class="dropify-infos-inner">
+                                <p class="dropify-filename"><span class="file-icon"></span> <span class="dropify-filename-inner"></span>
+                                </p>
+                                <p class="dropify-infos-message">Drag and drop or click to replace</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

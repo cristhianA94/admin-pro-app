@@ -8,6 +8,7 @@ import Swal from 'sweetalert2'
 import { map } from 'rxjs/operators';
 
 import { Usuario } from '../../models/usuario';
+import { SubirArchivoService } from '../service.index';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class UsuarioService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    public _subirArchivoServ: SubirArchivoService
   ) {
     this.cargarStorage();
   }
@@ -65,7 +67,7 @@ export class UsuarioService {
     );
   }
 
-  login(usuario: Usuario, recuerdame: boolean = false) {
+  login(usuario: Usuario, recuerdame: boolean) {
     // Guarda el email si el esta el check "recuerdame"
     if (recuerdame) {
       localStorage.setItem('email', usuario.email);
@@ -82,33 +84,6 @@ export class UsuarioService {
     );
   }
 
-  // Register
-  crearUsuario(usuario: Usuario) {
-    let url = URL_API + "/usuarios/crear";
-
-    return this.http.post(url, usuario).pipe
-      (map((res: any) => {
-        // Notificacion
-        Swal.fire(
-          '¡Usuario creado!',
-          usuario.email,
-          'success'
-        )
-        this.guardarStorage(res.id, res.token, res.usuario)
-
-        return res.usuario;
-      }));
-  }
-
-  // Update
-  updateUsuario(usuario: Usuario) {
-
-    let url = URL_API + "/usuarios/" + this.usuario._id + "/actualizar";
-    url += "?token=" + this.token;
-    return this.http.put(url, usuario);
-
-  }
-
   logOut() {
     this.usuario = null;
     this.token = '';
@@ -120,6 +95,70 @@ export class UsuarioService {
     localStorage.removeItem('id');
     this.router.navigate(['/login']);
   }
+
+  // Register
+  crearUsuario(usuario: Usuario) {
+    let url = URL_API + "/usuarios/crear";
+
+    return this.http.post(url, usuario).pipe
+      (map((res: any) => {
+        // Notificacion
+        Swal.fire(
+          '¡Usuario Creado!',
+          usuario.email,
+          'success'
+        );
+        this.guardarStorage(res.id, res.token, res.usuario)
+
+        return res.usuario;
+      }));
+  }
+
+  // Update
+  updateUsuario(usuario: Usuario) {
+
+    let url = URL_API + "/usuarios/" + this.usuario._id + "/actualizar";
+    url += "?token=" + this.token;
+
+    return this.http.put(url, usuario).pipe(
+      map((res: any) => {
+
+        let usuarioActualizado: Usuario = res.usuario;
+
+        // Guarda el usuario actualizado en el localStorage
+        this.guardarStorage(usuarioActualizado._id, this.token, usuarioActualizado);
+        Swal.fire(
+          '¡Usuario Actualizado!',
+          usuario.email,
+          'success'
+        );
+
+        return true;
+      })
+    );
+
+  }
+
+  cambiarImagen(file: File, id: string) {
+
+    this._subirArchivoServ.subirArchivo(file, "usuarios", id)
+      .then((res: any) => {
+
+        this.usuario.img = res.usuario.img;
+        Swal.fire(
+          '¡Imagen Actualizada!',
+          this.usuario.nombres + " " + this.usuario.apellidos,
+          'success'
+        );
+        this.guardarStorage(id, this.token, this.usuario);
+      })
+
+      .catch(err => {
+        console.log(err);
+      })
+
+  }
+
 
 
 }

@@ -21,7 +21,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.usuario = this._usuarioService.usuario;
     // Permite guardar los datos del user al cargar la pagina
-    this.usuario = JSON.parse(localStorage.getItem('usuario'));
+    //this.usuario = JSON.parse(localStorage.getItem('usuario'));
 
   }
 
