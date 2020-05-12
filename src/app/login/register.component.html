@@ -64,10 +64,10 @@
                         <button type="submit" [disabled]="registerForm.invalid" class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light">Registrarme</button>
                     </div>
                 </div>
-                <div class="form-group m-b-0 ">
-                    <div class="col-sm-12 text-center ">
-                        <p>¿Ya cuentas con una cuenta?<a [routerLink]="['/login']" class="text-info m-l-5 "><b>Logueate</b></a>
-                        </p>
+                <div class="form-group m-b-0">
+                    <div class="col-sm-12 text-center">
+                        <p class="text-center"><b>¿Ya cuentas con una cuenta?</b></p>
+                        <button type="button" [routerLink]="['/login']" class="btn btn-outline-success waves-effect waves-light"><b>Logueate </b> <i class="fa fa-sign-in"></i></button>
                     </div>
                 </div>
             </form>

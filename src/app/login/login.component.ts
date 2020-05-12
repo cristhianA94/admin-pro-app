@@ -36,19 +36,13 @@ export class LoginComponent implements OnInit {
     this.googleInit();
     // Retoma el email recordado
     this.email = localStorage.getItem('email') || '';
-
     // Recuerda el check
     if (this.email.length > 1) {
       this.recuerdame = true;
     }
     this.loginFormBuild();
-
   }
 
-  ngOnDestroy(): void {
-    // Resetea los valores del form
-    //this.loginForm.reset();
-  }
 
   loginFormBuild(): void {
 
@@ -85,8 +79,8 @@ export class LoginComponent implements OnInit {
       let token = googleUser.getAuthResponse().id_token;
 
       this._usuarioService.loginGoogle(token)
-        // ** Ruta con javascript por fallas del api de Google SignIn y estilos
         .subscribe(() => window.location.href = "#/dashboard")
+        // ** Ruta con javascript por fallas del api de Google SignIn y estilos
     });
   }
 
@@ -99,11 +93,8 @@ export class LoginComponent implements OnInit {
       this.loginForm.value.password
     );
 
-    //this.recuerdame = this.loginForm.value.recuerdame;
-
     this._usuarioService.login(usuario, this.loginForm.value.recuerdame)
       .subscribe(() => this.router.navigateByUrl("/dashboard"));
-
   }
 
 }

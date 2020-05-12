@@ -10,10 +10,14 @@ import { NopagefoundComponent } from '../shared/nopagefound/nopagefound.componen
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { ProfileComponent } from './profile/profile.component';
 
+// Components mantenimientos
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { UsuariosMattableComponent } from './usuarios/usuarios-mattable/usuarios-mattable.component';
 // Guards
 import { LoginGuard } from '../services/guards/login.guard';
-import { ProfileComponent } from './profile/profile.component';
+import { UsuarioService } from '../services/usuario/usuario.service';
 
 
 
@@ -22,7 +26,7 @@ const pageRoutes: Routes = [
   {
     path: '',
     component: PagesComponent,
-    canActivate: [ LoginGuard],
+    canActivate: [LoginGuard],
     children: [
       // Se utiliza ?data para mandar variables a las rutas
       { path: 'dashboard', component: DashboardComponent, data: { titulo: 'Dashboard' } },
@@ -32,6 +36,23 @@ const pageRoutes: Routes = [
       { path: 'rxjs', component: RxjsComponent, data: { titulo: 'Rxjs' } },
       { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Ajustes del Tema' } },
       { path: 'profile', component: ProfileComponent, data: { titulo: 'Perfil Usuario' } },
+      // Mantenimientos
+      {
+        path: 'usuarios',
+        component: UsuariosComponent,
+        data: { titulo: 'Usuarios' },
+        resolve: {
+          dataUser: UsuarioService
+        }
+      },
+      {
+        path: 'usuarios2',
+        component: UsuariosMattableComponent,
+        data: { titulo: 'Usuarios 2' },
+        resolve: {
+          dataUser: UsuarioService
+        }
+      },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     ]
   },
@@ -40,6 +61,7 @@ const pageRoutes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(pageRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [UsuarioService]
 })
 export class PagesRoutingModule { }

@@ -44,9 +44,11 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     // Alertas
     SweetAlert2Module.forRoot(),
   ],
-  providers: [],
+  providers: [
+    
+  ],
   bootstrap: [AppComponent],
   // Permite mostar bien con Web Components
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  //schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

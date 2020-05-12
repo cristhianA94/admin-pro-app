@@ -6,6 +6,7 @@ import { UsuarioService } from '../service.index';
 })
 export class SidebarService {
 
+  // Menus laterales
   menu: any = [
     {
       titulo: 'Principal',
@@ -15,7 +16,17 @@ export class SidebarService {
         { titulo: 'ProgressBar', url: '/progress' },
         { titulo: 'Gráficas', url: '/graficas1' },
         { titulo: 'Promesas', url: '/promesas' },
-        { titulo: 'Rxjs', url: '/rxjs' },
+        { titulo: 'Rxjs', url: '/rxjs' }
+      ]
+    },
+    {
+      titulo: 'Mantenimientos',
+      icono: 'mdi mdi-folder-lock-open',
+      submenu: [
+        { titulo: 'Usuarios', url: '/usuarios' },
+        { titulo: 'Usuarios MatTable', url: '/usuarios2' },
+        { titulo: 'Hospitales', url: '/hospitales' },
+        { titulo: 'Médicos', url: '/medicos' }
       ]
     }
   ]

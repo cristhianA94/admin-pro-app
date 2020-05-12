@@ -12,7 +12,7 @@ import { Usuario } from '../../models/usuario';
 export class SidebarComponent implements OnInit {
 
   usuario: Usuario;
-  
+
   constructor(
     public _sidebar: SidebarService,
     public _usuarioService: UsuarioService,
@@ -20,9 +20,8 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuario = this._usuarioService.usuario;
-    // Permite guardar los datos del user al cargar la pagina
-    //this.usuario = JSON.parse(localStorage.getItem('usuario'));
 
   }
+
 
 }

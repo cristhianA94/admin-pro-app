@@ -22,10 +22,14 @@ import { Graficas1Component } from './graficas1/graficas1.component';
 // temporal
 import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
 import { GraficaDonaComponent } from '../components/grafica-dona/grafica-dona.component';
+import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { UsuarioDialogComponent } from './usuarios/usuario-dialog/usuario-dialog.component';
+import { UsuariosMattableComponent } from './usuarios/usuarios-mattable/usuarios-mattable.component';
 
 
 @NgModule({
@@ -40,6 +44,10 @@ import { ProfileComponent } from './profile/profile.component';
     PromesasComponent,
     RxjsComponent,
     ProfileComponent,
+    UsuariosComponent,
+    UsuarioDialogComponent,
+    UsuariosMattableComponent,
+    ModalUploadComponent,
   ],
   imports: [
     CommonModule,
@@ -60,6 +68,10 @@ import { ProfileComponent } from './profile/profile.component';
     DashboardComponent,
     ProgressComponent,
     Graficas1Component,
+  ],
+  providers:[
+    
   ]
+  
 })
 export class PagesModule { }

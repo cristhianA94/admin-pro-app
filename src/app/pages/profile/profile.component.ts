@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { UsuarioService } from '../../services/usuario/usuario.service';
 import { Usuario } from '../../models/usuario';
 
-import { MatDialog } from '@angular/material/dialog';
 import { SubirArchivoService } from '../../services/upload/subir-archivo.service';
 import Swal from 'sweetalert2';
 
@@ -19,13 +18,12 @@ export class ProfileComponent implements OnInit {
   usuario: Usuario;
 
   imgSubir: File;
-  imgTemp: string | ArrayBuffer
+  imgTemp: string | ArrayBuffer;
 
   constructor(
     public fb: FormBuilder,
     public uploadService: SubirArchivoService,
     public _usuarioService: UsuarioService,
-    public dialog: MatDialog,
   ) {
     this.usuario = this._usuarioService.usuario;
 
@@ -41,23 +39,67 @@ export class ProfileComponent implements OnInit {
   }
 
   updateUserFormBuild() {
-    this.updateUsuarioForm = this.fb.group({
-      nombres: [this.usuario.nombres, Validators.required],
-      apellidos: [this.usuario.apellidos],
-      email: [this.usuario.email, Validators.required],
-      password: ['', [Validators.required, Validators.min(6)]]
-    });
+
+    if (!this.usuario.google) {
+      this.updateUsuarioForm = this.fb.group({
+        nombres: [this.usuario.nombres, Validators.required],
+        apellidos: [this.usuario.apellidos],
+        email: [this.usuario.email, [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]]
+      });
+      // Si es usuario de Google se prohibe cambiar email y pass
+    } else if (this.usuario.google) {
+
+      this.updateUsuarioForm = this.fb.group({
+        nombres: [this.usuario.nombres, Validators.required],
+        apellidos: [this.usuario.apellidos],
+        email: [this.usuario.email],
+        password: [this.usuario.email]
+      });
+
+      this.updateUsuarioForm.controls.email.disable();
+      this.updateUsuarioForm.controls.password.disable();
+
+    }
   }
 
   // Editar user
   guardarCambios() {
-    this._usuarioService.updateUsuario(this.updateUsuarioForm.value)
-      .subscribe();
+
+    if (!this.usuario.google) {
+
+      this.usuario = {
+        nombres: this.updateUsuarioForm.value.nombres,
+        apellidos: this.updateUsuarioForm.value.apellidos,
+        email: this.updateUsuarioForm.value.email,
+        password: this.updateUsuarioForm.value.password
+      }
+
+      this._usuarioService.actualizarUsuario(this.usuario)
+        .subscribe();
+
+    } else if (this.usuario.google) {
+
+      this.usuario = {
+        nombres: this.updateUsuarioForm.value.nombres,
+        apellidos: this.updateUsuarioForm.value.apellidos,
+        email: this.usuario.email,
+        password: this.usuario.password
+      };
+
+      this._usuarioService.actualizarUsuario(this.usuario)
+        .subscribe();
+    }
   }
 
-  // Valida si existe un archivo
+  cancelarForm() {
+    this.updateUserFormBuild();
+  }
+
+  // Genera preview imagen
   seleccionImg(archivo: File) {
 
+    // Valida si existe un archivo
     if (!archivo) {
       this.imgSubir = null;
     }
@@ -80,7 +122,6 @@ export class ProfileComponent implements OnInit {
     let urlImagenTemp = reader.readAsDataURL(archivo);
     // Permite visualizar la imagen elegida
     reader.onloadend = () => this.imgTemp = reader.result;
-
 
   }
 
