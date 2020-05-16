@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
 import { UsuarioDialogComponent } from '../usuario-dialog/usuario-dialog.component';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 
@@ -18,17 +18,18 @@ import { Usuario } from 'src/app/models/usuario';
 export class UsuariosMattableComponent implements OnInit {
 
   displayedColumns: string[] = ['Imagen', 'Email', 'Nombres', 'Rol', 'Auth', 'Acción'];
-
   dataSource = new MatTableDataSource<Usuario>();
-
-  usuarios: Usuario[];
-
-  totalRegistros: number = 0;
-  cargando: boolean = true;
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
+  pageIndex: number = 0;
+  pageSize: number = 5;
+
+  usuarios: Usuario[];
+
+  totalRegistros: number;
+  cargando: boolean = true;
+
 
   constructor(
     public dialog: MatDialog,
@@ -36,25 +37,33 @@ export class UsuariosMattableComponent implements OnInit {
     public actRouter: ActivatedRoute
   ) {
     //console.log(this.actRouter.snapshot.data['dataUser']);
-
     // ** Cargar los datos del service gracias al Resolver, mirar service.
-    this.cargarUsuarios(this.actRouter.snapshot.data['dataUser'].allUsers);
+    this.cargarUsuarios();
 
   }
 
   ngOnInit(): void {
+    console.log("Coimponetn init");
+
   }
 
-
   // Cargar datos 
-  cargarUsuarios(dataUsers: any) {
+  cargarUsuarios() {
 
-    this.totalRegistros = dataUsers.total;
-    this.usuarios = dataUsers.usuario;
+    this.cargando = true;
+    var dataUser: any;
 
-    // Carga los datos a la tabla
-    this.dataSource.data = this.usuarios;
+    this.actRouter.data.subscribe((res) => {
+      dataUser = res.dataUser["usersDesde"];
+
+      this.totalRegistros = dataUser.total;
+      this.usuarios = dataUser.usuario;
+      // Carga los datos a la tabla
+      this.dataSource.data = this.usuarios;
+    })
+
     this.cargando = false;
+
   }
 
 
@@ -109,5 +118,5 @@ export class UsuariosMattableComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  
+
 }

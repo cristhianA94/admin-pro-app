@@ -17,8 +17,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuario = this._usuarioService.usuario;
-    // Permite guardar los datos del user al cargar la pagina
-    // this.usuario = JSON.parse(localStorage.getItem('usuario'));
   }
 
 

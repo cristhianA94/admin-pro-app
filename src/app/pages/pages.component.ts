@@ -21,7 +21,6 @@ export class PagesComponent implements OnInit {
   ngOnInit(): void {
     init_Plugins();
     this.usuario = this._usuarioService.usuario;
-    //this.usuario = JSON.parse(localStorage.getItem('usuario'));
   }
 
 }

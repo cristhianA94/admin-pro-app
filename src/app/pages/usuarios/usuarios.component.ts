@@ -12,7 +12,9 @@ import { ModalUploadService } from '../../components/modal-upload/modal-upload.s
   styles: [
     `
     .img-50{
-      width: 50px;
+      width: 100px;
+      height: 100px;
+      cursor: pointer;
     }
     `
   ]
@@ -20,13 +22,10 @@ import { ModalUploadService } from '../../components/modal-upload/modal-upload.s
 export class UsuariosComponent implements OnInit {
 
   usuarios: Usuario[] = [];
-  usuarioSeleccionado: Usuario;
   cargando: boolean = true;
 
   desde: number = 0;
   totalRegistros: number = 0;
-
-  dialogRef: any;
 
   constructor(
     public _usuarioServ: UsuarioService,
@@ -90,15 +89,9 @@ export class UsuariosComponent implements OnInit {
       })
   }
 
-  guardarUsuario(usuario: Usuario) {
+  actualizarRol(usuario: Usuario) {
 
-    this.usuarios.forEach((element) => {
-      if (element._id === usuario._id) {
-        this.usuarioSeleccionado = element;
-        this._usuarioServ.actualizarUsuario(this.usuarioSeleccionado)
-          .subscribe();
-      }
-    });
+    this._usuarioServ.actualizarRol(usuario).subscribe();
   }
 
   borrarUsuario(usuario: Usuario) {

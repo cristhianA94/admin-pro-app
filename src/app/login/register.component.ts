@@ -1,10 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { UsuarioService } from '../services/service.index';
 import { Usuario } from '../models/usuario';
-import { Observable } from 'rxjs';
 
 declare function init_Plugins();
 
@@ -13,7 +12,7 @@ declare function init_Plugins();
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit, OnDestroy {
+export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
 
@@ -48,11 +47,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnDestroy(): void {
-    // Resetea los valores del form
-    //this.registerForm.reset();
-  }
-
   registerFormBuild(): void {
     this.registerForm = this.fb.group({
       nombres: ['', Validators.required],
@@ -64,15 +58,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }, {
       validator: this.VerificarPassword('password', 'confirmPassword')
     });
-
-    /* this.registerForm.setValue({
-      nombres: 'Test',
-      apellidos: 'Test ',
-      email: 'test@test.com',
-      password: '123456',
-      confirmPassword: '123456',
-      condiciones: true
-    }); */
 
   }
 

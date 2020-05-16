@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 
 import { ModalUploadService } from './modal-upload.service';
 import { SubirArchivoService } from '../../services/upload/subir-archivo.service';
+import { UsuarioService } from '../../services/usuario/usuario.service';
 
 @Component({
   selector: 'app-modal-upload',
@@ -18,6 +19,7 @@ export class ModalUploadComponent implements OnInit {
   constructor(
     public _subirFileService: SubirArchivoService,
     public _modalUploadService: ModalUploadService,
+    public _usuarioService: UsuarioService,
   ) { }
 
   ngOnInit(): void {
@@ -25,9 +27,13 @@ export class ModalUploadComponent implements OnInit {
 
   subirImg() {
     this._subirFileService.subirArchivo(this.imgSubir, this._modalUploadService.tipo, this._modalUploadService.id)
-      .then(res => {
+      .then((res: any) => {
         // Muestra el res del server
         this._modalUploadService.notificacion.emit(res);
+        // Si es el usuario logueado, refresca sus datos
+        if (this._usuarioService.usuario._id === this._modalUploadService.id) {
+          this._usuarioService.guardarStorage(this._usuarioService.usuario._id, this._usuarioService.token, res.usuario)
+        }
         this.cerrarModal();
       })
       .catch(err => {

@@ -15,8 +15,13 @@ import { ProfileComponent } from './profile/profile.component';
 // Components mantenimientos
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { UsuariosMattableComponent } from './usuarios/usuarios-mattable/usuarios-mattable.component';
+import { HospitalesComponent } from './hospitales/hospitales.component';
+import { MedicosComponent } from './medicos/medicos/medicos.component';
+import { MedicoComponent } from './medicos/medico.component';
+
 // Guards
 import { LoginGuard } from '../services/guards/login.guard';
+//Services
 import { UsuarioService } from '../services/usuario/usuario.service';
 
 
@@ -40,7 +45,7 @@ const pageRoutes: Routes = [
       {
         path: 'usuarios',
         component: UsuariosComponent,
-        data: { titulo: 'Usuarios' },
+        data: { titulo: 'Mantenimiento de Usuarios' },
         resolve: {
           dataUser: UsuarioService
         }
@@ -53,6 +58,9 @@ const pageRoutes: Routes = [
           dataUser: UsuarioService
         }
       },
+      { path: 'hospitales', component: HospitalesComponent, data: { titulo: 'Mantenimiento de Hospitales' } },
+      { path: 'medicos', component: MedicosComponent, data: { titulo: 'Mantenimiento de Médicos' } },
+      { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Actualizar Médico' } },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     ]
   },
@@ -62,6 +70,8 @@ const pageRoutes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(pageRoutes)],
   exports: [RouterModule],
-  providers: [UsuarioService]
+  providers: [
+    UsuarioService,
+  ]
 })
 export class PagesRoutingModule { }

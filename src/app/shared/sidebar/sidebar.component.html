@@ -9,8 +9,8 @@
             <ul id="sidebarnav">
                 <li class="user-profile">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false" align="center">
-                        <img [src]="usuario.img |imagen" alt="user" />
-                        <span class="hide-menu">{{ usuario.nombres }} {{ usuario.apellidos }}</span>
+                        <img [src]="_usuarioService.usuario.img | imagen" alt="user" />
+                        <span class="hide-menu">{{ _usuarioService.usuario.nombres }} {{ _usuarioService.usuario.apellidos }}</span>
                     </a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a routerLinkActive="active" [routerLink]="['/profile']">Perfil</a></li>

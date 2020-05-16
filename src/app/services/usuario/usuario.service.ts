@@ -5,6 +5,7 @@ import { URL_API } from '../../config/config';
 
 // Alertas
 import Swal from 'sweetalert2'
+
 import { map } from 'rxjs/operators';
 import { Observable, forkJoin } from 'rxjs';
 
@@ -18,6 +19,9 @@ export class UsuarioService implements Resolve<any> {
 
   usuario: Usuario;
   token: string;
+  role: string;
+
+  public desde: number = 0;
 
   constructor(
     private http: HttpClient,
@@ -31,7 +35,7 @@ export class UsuarioService implements Resolve<any> {
 
     // Permite array de Observables
     return forkJoin([
-      this.cargarUsuariosDesde(),
+      this.cargarUsuariosDesde(this.desde),
       this.cargarUsuariosMatTable()
     ]).pipe(
       map(result => {
@@ -54,10 +58,12 @@ export class UsuarioService implements Resolve<any> {
 
     if (localStorage.getItem('token')) {
       this.token = localStorage.getItem('token');
+      this.role = localStorage.getItem('role');
       this.usuario = JSON.parse(localStorage.getItem('usuario'));
     } else {
       this.token = '';
       this.usuario = null;
+      this.role = '';
     }
   }
 
@@ -66,21 +72,24 @@ export class UsuarioService implements Resolve<any> {
 
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
+    localStorage.setItem('role', usuario.role);
     // Convierte a un objeto JSON
-    usuario.password = ":)";
     localStorage.setItem('usuario', JSON.stringify(usuario));
 
     this.usuario = usuario;
+    this.role = usuario.role;
     this.token = token;
   }
 
   logOut() {
     this.usuario = null;
     this.token = '';
+    this.role = '';
 
     // Borra las variables del localstorage
     //localStorage.clear();
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
     localStorage.removeItem('usuario');
     localStorage.removeItem('id');
 
@@ -138,41 +147,20 @@ export class UsuarioService implements Resolve<any> {
       }));
   }
 
-  // Update
+  // Update profile
   actualizarUsuario(usuario: Usuario) {
 
-    var url: string
-    var userPorEditar: Usuario;
-
-    // Edita el profile
-    if (usuario._id) {
-      url = URL_API + "/usuarios/" + usuario._id + "/actualizar";
-      userPorEditar = usuario;
-
-      // Edita el Rol
-    } else {
-      url = URL_API + "/usuarios/" + this.usuario._id + "/actualizar";
-      userPorEditar = usuario;
-    }
-
+    var url = URL_API + "/usuarios/" + this.usuario._id + "/actualizar";
     url += "?token=" + this.token;
 
-    return this.http.put(url, userPorEditar).pipe(
+    return this.http.put(url, usuario).pipe(
       map((res: any) => {
 
-        // Guarda en el storage si es el usuario logueado
-        if (this.usuario._id === res.usuario._id) {
-          var usuarioActualizado: Usuario = res.usuario;
-          // Guarda el usuario actualizado en el localStorage
-          this.guardarStorage(usuarioActualizado._id, this.token, usuarioActualizado);
-        }
+        var usuarioActualizado: Usuario = res.usuario;
+        // Guarda el usuario actualizado en el localStorage
+        this.guardarStorage(usuarioActualizado._id, this.token, usuarioActualizado);
 
-        /* Swal.fire(
-          '¡Usuario Actualizado!',
-          usuario.email,
-          'success'
-        ); */
-
+        // Notificacion
         let timerInterval
         Swal.fire({
           title: '¡Usuario Actualizado!',
@@ -183,6 +171,7 @@ export class UsuarioService implements Resolve<any> {
             Swal.showLoading()
             timerInterval = setInterval(() => {
               Swal.getContent()
+              // Recargar la pagina
               window.location.reload();
             }, 1000)
           },
@@ -199,7 +188,46 @@ export class UsuarioService implements Resolve<any> {
       })
     );
 
+  }
 
+  // Update role
+  actualizarRol(usuario: Usuario) {
+
+    var url = URL_API + "/usuarios/" + usuario._id + "/actualizarRol";
+    url += "?token=" + this.token;
+
+    return this.http.put(url, { role: usuario.role }).pipe(
+      map((res: any) => {
+
+        if (this.usuario._id === usuario._id) {
+          this.guardarStorage(res.usuario._id, this.token, res.usuario)
+        }
+
+        // Notificacion
+        let timerInterval
+        Swal.fire({
+          title: 'Rol Actualizado!',
+          icon: 'success',
+          timer: 1000,
+          timerProgressBar: true,
+          onBeforeOpen: () => {
+            Swal.showLoading()
+            timerInterval = setInterval(() => {
+              Swal.getContent()
+            }, 1000)
+          },
+          onClose: () => {
+            clearInterval(timerInterval)
+          }
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+          }
+        })
+
+        return true;
+      })
+    );
 
   }
 
@@ -208,14 +236,13 @@ export class UsuarioService implements Resolve<any> {
 
     this._subirArchivoServ.subirArchivo(file, "usuarios", id)
       .then((res: any) => {
-
-        this.usuario.img = res.usuario.img;
         Swal.fire(
           '¡Imagen Actualizada!',
           this.usuario.nombres + " " + this.usuario.apellidos,
           'success'
         );
-        this.guardarStorage(id, this.token, this.usuario);
+
+        this.guardarStorage(id, this.token, res.usuario);
       })
       .catch(err => {
         console.log(err);
@@ -223,8 +250,18 @@ export class UsuarioService implements Resolve<any> {
 
   }
 
+  // Obtiene un usuario
+  obtenerUsuario(id: string) {
+    let url = URL_API + "/usuarios/" + id;
+    return this.http.get(url).pipe(
+      map((user: any) => {
+        return user.usuario;
+      })
+    );
+
+  }
   // Cargar usuarios
-  cargarUsuariosDesde(desde: number = 0) {
+  cargarUsuariosDesde(desde: number) {
     let url = URL_API + "/usuarios?desde=" + desde;
     return this.http.get(url);
   }

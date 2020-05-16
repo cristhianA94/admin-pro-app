@@ -47,9 +47,9 @@ export class ProfileComponent implements OnInit {
         email: [this.usuario.email, [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]]
       });
+
       // Si es usuario de Google se prohibe cambiar email y pass
     } else if (this.usuario.google) {
-
       this.updateUsuarioForm = this.fb.group({
         nombres: [this.usuario.nombres, Validators.required],
         apellidos: [this.usuario.apellidos],
@@ -72,11 +72,13 @@ export class ProfileComponent implements OnInit {
         nombres: this.updateUsuarioForm.value.nombres,
         apellidos: this.updateUsuarioForm.value.apellidos,
         email: this.updateUsuarioForm.value.email,
-        password: this.updateUsuarioForm.value.password
+        password: this.updateUsuarioForm.value.password,
+        role: this._usuarioService.role
       }
 
       this._usuarioService.actualizarUsuario(this.usuario)
         .subscribe();
+      this.updateUserFormBuild();
 
     } else if (this.usuario.google) {
 
@@ -84,11 +86,13 @@ export class ProfileComponent implements OnInit {
         nombres: this.updateUsuarioForm.value.nombres,
         apellidos: this.updateUsuarioForm.value.apellidos,
         email: this.usuario.email,
-        password: this.usuario.password
+        password: this.usuario.password,
+        role: this._usuarioService.role
       };
 
       this._usuarioService.actualizarUsuario(this.usuario)
         .subscribe();
+      this.updateUserFormBuild();
     }
   }
 
