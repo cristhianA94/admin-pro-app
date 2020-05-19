@@ -43,7 +43,6 @@ export class UsuariosMattableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("Coimponetn init");
 
   }
 

@@ -30,7 +30,7 @@
                                 <div class="input-group-addon"><i class="ti-email"></i></div>
                                 <input type="email" formControlName="email" class="form-control" placeholder="Email" required>
                             </div>
-                            <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="alert alert-danger form-danger" role="alert">
+                            <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="alert alert-danger mt-1" role="alert form" style="border-radius: 60px;">
                                 <span *ngIf="f.email.errors.required">Email requerido</span>
                                 <span *ngIf="f.email.errors.email">El email debe ser válido</span>
                             </div>
@@ -43,7 +43,7 @@
                                 <div class="input-group-addon"><i class="ti-lock"></i></div>
                                 <input minlength="6" type="password" formControlName="password" class="form-control" placeholder="Password" required>
                             </div>
-                            <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)" class="alert alert-danger form-danger" role="alert">
+                            <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)" class="alert alert-danger mt-1" role="alert form" style="border-radius: 60px;">
                                 <span *ngIf="f.password.errors.required">Contraseña requerida</span>
                                 <span *ngIf="f.password.errors.minlength">La contraseña debe tener al menos 6 caracteres</span>
                             </div>

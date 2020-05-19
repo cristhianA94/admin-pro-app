@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Medico } from '../../../models/medico';
-import { MedicoService } from '../../../services/service.index';
+import { Medico } from '../../models/medico';
+import { MedicoService } from '../../services/service.index';
 import { ModalUploadService } from 'src/app/components/modal-upload/modal-upload.service';
 import Swal from 'sweetalert2';
 
@@ -13,7 +13,6 @@ import Swal from 'sweetalert2';
     .img-50{
       width: 100px;
       height: 100px;
-      cursor: pointer;
     }
     `
   ]
@@ -27,19 +26,10 @@ export class MedicosComponent implements OnInit {
 
   constructor(
     public _medicoService: MedicoService,
-    public _modalUploadService: ModalUploadService
   ) { }
 
   ngOnInit(): void {
     this.cargarMedicos();
-    // Cuando se cambie de imagen recarga los users
-    this._modalUploadService.notificacion
-      .subscribe(() => this.cargarMedicos());
-
-  }
-
-  mostrarModal(id: string): void {
-    this._modalUploadService.mostrarModal('medicos', id);
   }
 
   cargarMedicos() {
@@ -47,30 +37,10 @@ export class MedicosComponent implements OnInit {
     this.cargando = true;
 
     this._medicoService.cargarMedicos(this.desde)
-      .subscribe((res: any) => {
-        console.log("Component", res);
-
-        this.medicos = res;
+      .subscribe((medicos: any) => {
+        this.medicos = medicos;
         this.cargando = false;
       })
-
-  }
-
-  // Permite cuantos usuarios mostrar
-  cambiarDesde(valor: number) {
-    let desde = this.desde + valor;
-
-
-    if (desde >= this._medicoService.totalMedicos) {
-      return;
-    }
-
-    if (desde < 0) {
-      return;
-    }
-
-    this.desde += valor;
-    this.cargarMedicos();
 
   }
 
@@ -87,6 +57,22 @@ export class MedicosComponent implements OnInit {
         this.medicos = medico;
         this.cargando = false;
       })
+  }
+
+  // Permite cuantos usuarios mostrar
+  cambiarDesde(valor: number) {
+    let desde = this.desde + valor;
+
+    if (desde >= this._medicoService.totalMedicos) {
+      return;
+    }
+
+    if (desde < 0) {
+      return;
+    }
+    this.desde += valor;
+    this.cargarMedicos();
+
   }
 
   borrarMedico(medico: Medico) {
@@ -132,7 +118,7 @@ export class MedicosComponent implements OnInit {
           'error'
         )
       }
-    })
+    });
 
   }
 

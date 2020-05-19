@@ -1,6 +1,8 @@
 <div class="row animated fadeIn">
     <div class="col-12">
-        <input #input (keyup)="buscarHospital(input.value)" type="text" class="form-control" placeholder="Buscar usuario...">
+        <mat-card>
+            <input #input (keyup)="buscarHospital(input.value)" type="text" class="form-control" placeholder="Buscar usuario...">
+        </mat-card>
     </div>
 </div>
 
@@ -42,47 +44,48 @@
                 </div>
 
                 <hr>
+                <mat-card>
+                    <div class="table-responsive">
+                        <table class="table color-bordered-table red-bordered-table">
+                            <thead>
+                                <tr>
+                                    <th><i class="fa fa-image"></i> Imagen</th>
+                                    <th><i class="fa fa-hospital-o"></i> Nombre</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
 
-                <div class="table-responsive">
-                    <table class="table color-bordered-table red-bordered-table">
-                        <thead>
-                            <tr>
-                                <th><i class="fa fa-image"></i> Imagen</th>
-                                <th><i class="fa fa-hospital-o"></i> Nombre</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr *ngFor=" let hospital of hospitales ">
-                                <td style="width: 125px;">
-                                    <img (click)="mostrarModal(hospital._id)" [src]="hospital.img | imagen:'hospitales' " alt="Img hospital " class="img-50 img-circle pointer">
-                                </td>
-                                <td class="align-middle">
-                                    <input [(ngModel)]="hospital.nombre" type="text" class="form-control" placeholder="Nombre hospital">
-                                </td>
-                                <td class="align-middle " style="width: 125px;">
-                                    <button (click)="actualizarHospital(hospital)" type="button" class="btn btn-info mr-2"><i
+                            <tbody>
+                                <tr *ngFor=" let hospital of hospitales ">
+                                    <td style="width: 125px;">
+                                        <img (click)="mostrarModal(hospital._id)" [src]="hospital.img | imagen:'hospitales' " alt="Img hospital " class="img-50 img-circle">
+                                    </td>
+                                    <td class="align-middle">
+                                        <input [(ngModel)]="hospital.nombre" type="text" class="form-control" placeholder="Nombre hospital">
+                                    </td>
+                                    <td class="align-middle " style="width: 125px;">
+                                        <button (click)="actualizarHospital(hospital)" type="button" class="btn btn-info mr-2"><i
                       class="fa fa-save"></i></button>
-                                    <button (click)="borrarHospital(hospital)" type="button " class="btn btn-danger "><i
+                                        <button (click)="borrarHospital(hospital)" type="button " class="btn btn-danger "><i
                       class="mdi mdi-delete"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-                    <hr>
+                        <hr>
 
-                    <button (click)="cambiarDesde(-10)" class="btn btn-secondary btn-circle mr-2" type="button"><i
+                        <button (click)="cambiarDesde(-10)" class="btn btn-secondary btn-circle mr-2" type="button"><i
               class="fa fa-angle-double-left"></i> </button>
-                    <button (click)="cambiarDesde(-5)" class="btn btn-secondary btn-circle mr-2" type="button"><i
+                        <button (click)="cambiarDesde(-5)" class="btn btn-secondary btn-circle mr-2" type="button"><i
               class="fa fa-angle-left"></i> </button>
-                    <button (click)="cambiarDesde(5)" class="btn btn-secondary btn-circle mr-2" type="button"><i
+                        <button (click)="cambiarDesde(5)" class="btn btn-secondary btn-circle mr-2" type="button"><i
               class="fa fa-angle-right"></i> </button>
-                    <button (click)="cambiarDesde(10)" class="btn btn-secondary btn-circle mr-2" type="button"><i
+                        <button (click)="cambiarDesde(10)" class="btn btn-secondary btn-circle mr-2" type="button"><i
               class="fa fa-angle-double-right"></i> </button>
 
-                </div>
+                    </div>
+                </mat-card>
             </div>
         </div>
     </div>

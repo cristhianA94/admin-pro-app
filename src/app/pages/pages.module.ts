@@ -31,8 +31,9 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { UsuarioDialogComponent } from './usuarios/usuario-dialog/usuario-dialog.component';
 import { UsuariosMattableComponent } from './usuarios/usuarios-mattable/usuarios-mattable.component';
 import { HospitalesComponent } from './hospitales/hospitales.component';
-import { MedicosComponent } from './medicos/medicos/medicos.component';
-import { MedicoComponent } from './medicos/medico.component';
+import { MedicosComponent } from './medicos/medicos.component';
+import { MedicoFormComponent } from './medicos/medico-form/medico-form.component';
+
 
 
 @NgModule({
@@ -53,7 +54,7 @@ import { MedicoComponent } from './medicos/medico.component';
     ModalUploadComponent,
     HospitalesComponent,
     MedicosComponent,
-    MedicoComponent,
+    MedicoFormComponent,
   ],
   imports: [
     CommonModule,

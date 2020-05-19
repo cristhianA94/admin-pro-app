@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-md-6">
+
+        <form #medicoForm="ngForm" ngNativeValidate>
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title><i class="fa fa-user-md"></i> <strong> Médico</strong></mat-card-title>
+                    <mat-card-subtitle> {{ medico.nombres }} {{ medico.apellidos }} </mat-card-subtitle>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nombres</mat-label>
+                        <input matInput [(ngModel)]="medico.nombres" name="nombres" placeholder="Nombres" required>
+                        <mat-icon matSuffix>assignment_ind</mat-icon>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Apellidos</mat-label>
+                        <input matInput [(ngModel)]="medico.apellidos" name="apellidos" placeholder="Apellidos" required>
+                        <mat-icon matSuffix>assignment_ind</mat-icon>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Hospital</mat-label>
+                        <mat-select (ngModelChange)="cambiarHospital($event)" [(ngModel)]="medico.hospital" name="hospital" required>
+                            <mat-option *ngFor="let hospital of hospitales" [value]="hospital._id">
+                                {{ hospital.nombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-card-content>
+
+                <mat-card-actions>
+                    <button *ngIf="!medico._id" (click)="guardarMedico(medicoForm)" type="button" mat-raised-button color="primary" class="ml-2 ">Crear</button>
+                    <button *ngIf="medico._id" (click)="actualizarMedico(medicoForm)" type="button" mat-stroked-button color="primary" class="ml-2 ">Actualizar</button>
+                    <button [routerLink]="[ '/medicos'] " mat-raised-button color="warn">Cancelar</button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </div>
+
+
+    <div class="col-md-3 ">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title><i class="fa fa-hospital-o "></i> <strong> Hospital</strong></mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div align="center ">
+                    <img [src]="hospital.img | imagen: 'hospitales' " alt="img hospital " class="img-50 ">
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+
+    <div class="col-md-3 " *ngIf="medico._id ">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title><i class="fa fa-image "></i> <strong> Foto médico</strong></mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div align="center ">
+                    <img (click)="cambiarFoto() " [src]="medico.img | imagen: 'medicos' " alt="img hospital " class="img-50 pointer ">
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+</div>

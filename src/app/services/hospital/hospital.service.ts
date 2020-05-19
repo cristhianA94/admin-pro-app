@@ -21,7 +21,7 @@ export class HospitalService {
     public _usuarioService: UsuarioService
   ) { }
 
-  cargarHospitales(desde: number): Observable<any> {
+  cargarHospitales(desde: number = 0): Observable<any> {
     let url = URL_API + "/hospitales?desde=" + desde;
     return this.http.get(url).pipe(
       map((res: any) => {
@@ -31,9 +31,11 @@ export class HospitalService {
     );
   }
 
-  obtenerHospital(id: string): Observable<any> {
+  obtenerHospital(id: string): Observable<Hospital> {
     let url = URL_API + "/hospitales/" + id;
-    return this.http.get(url);
+    return this.http.get(url).pipe(
+      map((res:any)=> res.hospital)
+    );
   }
 
   
