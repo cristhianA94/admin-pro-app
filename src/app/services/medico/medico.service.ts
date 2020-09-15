@@ -7,6 +7,7 @@ import { UsuarioService } from '../service.index';
 import { map } from 'rxjs/operators';
 import { Medico } from '../../models/medico';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class MedicoService {
 
   constructor(
     private http: HttpClient,
-    public _usuarioService: UsuarioService
+    public _usuarioService: UsuarioService,
+    public router: Router
   ) { }
 
   // Obtiene todos los médicos
@@ -37,8 +39,7 @@ export class MedicoService {
 
     return this.http.get(url).pipe(
       map((res: any) => res.medico)
-    );;
-
+    );
   }
 
   // Busca un médico específico
@@ -98,7 +99,6 @@ export class MedicoService {
     );
 
   }
-
 
   borrarMedico(id: string): Observable<any> {
     let url = URL_API + "/medicos/" + id + "/eliminar";

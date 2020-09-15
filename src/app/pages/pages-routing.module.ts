@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, Resolve } from '@angular/router';
 
 // Components
 import { PagesComponent } from './pages.component';
@@ -16,13 +16,16 @@ import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { UsuariosMattableComponent } from './usuarios/usuarios-mattable/usuarios-mattable.component';
 import { HospitalesComponent } from './hospitales/hospitales.component';
-import { MedicosComponent } from './medicos/medicos/medicos.component';
-import { MedicoComponent } from './medicos/medico.component';
+import { MedicosComponent } from './medicos/medicos.component';
+import { MedicoFormComponent } from './medicos/medico-form/medico-form.component';
+
 
 // Guards
 import { LoginGuard } from '../services/guards/login.guard';
 //Services
 import { UsuarioService } from '../services/usuario/usuario.service';
+import { MedicoService } from '../services/medico/medico.service';
+import { HospitalService } from '../services/hospital/hospital.service';
 
 
 
@@ -46,21 +49,21 @@ const pageRoutes: Routes = [
         path: 'usuarios',
         component: UsuariosComponent,
         data: { titulo: 'Mantenimiento de Usuarios' },
-        resolve: {
-          dataUser: UsuarioService
-        }
+        resolve: { dataUser: UsuarioService }
       },
       {
         path: 'usuarios2',
         component: UsuariosMattableComponent,
         data: { titulo: 'Usuarios 2' },
-        resolve: {
-          dataUser: UsuarioService
-        }
+        resolve: { dataUser: UsuarioService }
       },
       { path: 'hospitales', component: HospitalesComponent, data: { titulo: 'Mantenimiento de Hospitales' } },
       { path: 'medicos', component: MedicosComponent, data: { titulo: 'Mantenimiento de Médicos' } },
-      { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Actualizar Médico' } },
+      {
+        path: 'medico/:id',
+        component: MedicoFormComponent,
+        data: { titulo: 'Actualizar Médico' }
+      },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     ]
   },
@@ -72,6 +75,8 @@ const pageRoutes: Routes = [
   exports: [RouterModule],
   providers: [
     UsuarioService,
+    MedicoService,
+    HospitalService
   ]
 })
 export class PagesRoutingModule { }

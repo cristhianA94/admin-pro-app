@@ -1,7 +1,7 @@
 export { LoginGuard } from './guards/login.guard';
 
 export { UsuarioService } from './usuario/usuario.service';
-export { HospitalService } from './hospital/hospital.service'; 
+export { HospitalService } from './hospital/hospital.service';
 export { MedicoService } from './medico/medico.service';
 export { SettingsService } from './settings/settings.service';
 export { SharedService } from './shared/shared.service';
