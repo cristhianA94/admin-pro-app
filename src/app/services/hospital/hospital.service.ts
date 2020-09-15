@@ -21,7 +21,7 @@ export class HospitalService {
     public _usuarioService: UsuarioService
   ) { }
 
-  cargarHospitales(desde: number): Observable<any> {
+  cargarHospitales(desde?: number): Observable<any> {
     let url = URL_API + "/hospitales?desde=" + desde;
     return this.http.get(url).pipe(
       map((res: any) => {
@@ -31,12 +31,16 @@ export class HospitalService {
     );
   }
 
-  obtenerHospital(id: string): Observable<any> {
+  obtenerHospital(id: string): Observable<Hospital> {
     let url = URL_API + "/hospitales/" + id;
-    return this.http.get(url);
+    return this.http.get(url).pipe(
+      map((res: any) => {
+        return res.hospital;
+      })
+    );
   }
 
-  
+
   buscarHospital(termino: string): Observable<any> {
     let url = URL_API + "/busqueda/coleccion/hospitales/" + termino;
 
@@ -73,7 +77,7 @@ export class HospitalService {
         // Notificacion
         let timerInterval
         Swal.fire({
-          title: '¡Usuario Actualizado!',
+          title: 'Hospital Actualizado!',
           icon: 'success',
           timer: 1000,
           timerProgressBar: true,

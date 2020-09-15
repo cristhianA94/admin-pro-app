@@ -48,8 +48,6 @@ export class MedicosComponent implements OnInit {
 
     this._medicoService.cargarMedicos(this.desde)
       .subscribe((res: any) => {
-        console.log("Component", res);
-
         this.medicos = res;
         this.cargando = false;
       })

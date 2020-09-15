@@ -245,7 +245,11 @@ export class UsuarioService implements Resolve<any> {
         this.guardarStorage(id, this.token, res.usuario);
       })
       .catch(err => {
-        console.log(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al subir la imagen',
+          text: err
+        })
       })
 
   }

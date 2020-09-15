@@ -9,7 +9,7 @@ export class SubirArchivoService {
   constructor() { }
 
 
-  // Servicio con AJAX
+  // TODO Servicio con AJAX
   subirArchivo(archivo: File, tipo: string, id: string) {
 
     return new Promise((resolve, reject) => {

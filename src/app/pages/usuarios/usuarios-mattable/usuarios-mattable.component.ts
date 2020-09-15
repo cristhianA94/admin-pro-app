@@ -43,11 +43,9 @@ export class UsuariosMattableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("Coimponetn init");
-
   }
 
-  // Cargar datos 
+  // Cargar datos
   cargarUsuarios() {
 
     this.cargando = true;
@@ -100,7 +98,7 @@ export class UsuariosMattableComponent implements OnInit {
   }
 
   onRowClicked(row: any) {
-    console.log('Row clicked: ', row);
+    //console.log('Row clicked: ', row);
   }
 
   /* Mat Table sorter and filter */
