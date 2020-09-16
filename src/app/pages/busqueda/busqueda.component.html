@@ -1,0 +1,122 @@
+<div class="row">
+    <div class="col-md-4">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Usuarios</mat-card-title>
+            </mat-card-header>
+            <div class="table-responsive">
+                <table class="table full-color-table full-inverse-table hover-table">
+                    <thead>
+                        <tr>
+                            <th><i class="fa fa-image"></i> Foto</th>
+                            <th><i class="fa fa-envelope-square"></i> Correo</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor=" let usuario of usuarios ">
+                            <td style="width: 125px;">
+                                <img [src]="usuario.img | imagen:'usuarios' " alt="Img usuario " class="img-50 img-circle">
+                            </td>
+                            <td class="align-middle">{{ usuario.nombres }} {{ usuario.apellidos }}</td>
+                            <td class="align-middle">
+                                <button [routerLink]="['/usuarios']" mat-mini-fab color="primary" aria-label="Ver">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <div *ngIf="usuarios.length === 0" class="alert alert-danger" role="alert">
+                    No hay registros.
+                </div>
+
+            </div>
+        </mat-card>
+    </div>
+
+    <!-- Hospitales -->
+    <div class="col-md-4">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Hospitales</mat-card-title>
+            </mat-card-header>
+            <div class="table-responsive">
+                <table class="table full-color-table full-inverse-table hover-table">
+                    <thead>
+                        <tr>
+                            <th><i class="fa fa-image"></i> Foto</th>
+                            <th><i class="fa fa-envelope-square"></i> Nombre</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor=" let hospital of hospitales">
+                            <td style="width: 125px;">
+                                <img [src]="hospital.img | imagen:'hospitales' " alt="Img hospital " class="img-50 img-circle">
+                            </td>
+                            <td class="align-middle">{{ hospital.nombre }} </td>
+                            <td class="align-middle">
+                                <button [routerLink]="['/hospitales']" mat-mini-fab color="primary" aria-label="Ver">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <div *ngIf="hospitales.length === 0" class="alert alert-danger" role="alert">
+                    No hay registros.
+                </div>
+
+            </div>
+        </mat-card>
+    </div>
+
+    <!-- Medicos -->
+    <div class="col-md-4">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Médicos</mat-card-title>
+            </mat-card-header>
+            <div class="table-responsive">
+                <table class="table full-color-table full-inverse-table hover-table">
+                    <thead>
+                        <tr>
+                            <th><i class="fa fa-image"></i> Foto</th>
+                            <th><i class="fa fa-vcard"></i> Nombres</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor=" let medico of medicos ">
+                            <td style="width: 125px;">
+                                <img [src]="medico.img | imagen:'medicos' " alt="Img medico " class="img-50 img-circle">
+                            </td>
+                            <td class="align-middle">{{ medico.nombres }} {{ medico.apellidos }}</td>
+                            <td class="align-middle">
+                                <button [routerLink]="['/medico/',medico._id]" mat-mini-fab color="primary" aria-label="Ver">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <div *ngIf="medicos.length === 0" class="alert alert-danger" role="alert">
+                    No hay registros.
+                </div>
+
+            </div>
+        </mat-card>
+    </div>
+
+
+</div>

@@ -33,6 +33,7 @@ import { UsuariosMattableComponent } from './usuarios/usuarios-mattable/usuarios
 import { HospitalesComponent } from './hospitales/hospitales.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { MedicoFormComponent } from './medicos/medico-form/medico-form.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 
 
 
@@ -55,6 +56,7 @@ import { MedicoFormComponent } from './medicos/medico-form/medico-form.component
     HospitalesComponent,
     MedicosComponent,
     MedicoFormComponent,
+    BusquedaComponent,
   ],
   imports: [
     CommonModule,

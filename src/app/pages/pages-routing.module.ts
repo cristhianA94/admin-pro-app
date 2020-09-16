@@ -26,6 +26,7 @@ import { LoginGuard } from '../services/guards/login.guard';
 import { UsuarioService } from '../services/usuario/usuario.service';
 import { MedicoService } from '../services/medico/medico.service';
 import { HospitalService } from '../services/hospital/hospital.service';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 
 
 
@@ -44,6 +45,7 @@ const pageRoutes: Routes = [
       { path: 'rxjs', component: RxjsComponent, data: { titulo: 'Rxjs' } },
       { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Ajustes del Tema' } },
       { path: 'profile', component: ProfileComponent, data: { titulo: 'Perfil Usuario' } },
+      { path: 'busqueda/:termino', component: BusquedaComponent, data: { titulo: 'Buscador' } },
       // Mantenimientos
       {
         path: 'usuarios',
