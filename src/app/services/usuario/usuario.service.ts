@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { URL_API } from '../../config/config';
+import { Usuario } from '../../models/usuario';
+import { SubirArchivoService } from '../service.index';
 
 // Alertas
 import Swal from 'sweetalert2'
 
-import { map } from 'rxjs/operators';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, throwError } from 'rxjs';
+import { map, retry } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
-import { Usuario } from '../../models/usuario';
-import { SubirArchivoService } from '../service.index';
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,7 @@ export class UsuarioService implements Resolve<any> {
   usuario: Usuario;
   token: string;
   role: string;
+  menu: any[] = [];
 
   public desde: number = 0;
 
@@ -33,7 +36,7 @@ export class UsuarioService implements Resolve<any> {
   // Permite cargar los datos de la api antes de cargar el componente
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
 
-    // Permite array de Observables
+    // TODO Permite resolver los datos de Observables
     return forkJoin([
       this.cargarUsuariosDesde(this.desde),
       this.cargarUsuariosMatTable()
@@ -60,25 +63,29 @@ export class UsuarioService implements Resolve<any> {
       this.token = localStorage.getItem('token');
       this.role = localStorage.getItem('role');
       this.usuario = JSON.parse(localStorage.getItem('usuario'));
+      this.menu = JSON.parse(localStorage.getItem('menu'));
     } else {
       this.token = '';
       this.usuario = null;
       this.role = '';
+      this.menu = [];
     }
   }
 
   // Permite guardar en el storage los datos del user
-  guardarStorage(id: string, token: string, usuario: Usuario) {
+  guardarStorage(id: string, token: string, usuario: Usuario, menu: any) {
 
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
     localStorage.setItem('role', usuario.role);
     // Convierte a un objeto JSON
     localStorage.setItem('usuario', JSON.stringify(usuario));
+    localStorage.setItem('menu', JSON.stringify(menu));
 
     this.usuario = usuario;
     this.role = usuario.role;
     this.token = token;
+    this.menu = menu;
   }
 
   logOut() {
@@ -92,10 +99,11 @@ export class UsuarioService implements Resolve<any> {
     localStorage.removeItem('role');
     localStorage.removeItem('usuario');
     localStorage.removeItem('id');
+    localStorage.removeItem('menu');
 
     this.router.navigate(['/login']);
     // Recarga la pagina login al salir
-    // ** Para bugg de re-login
+    // TODO Para bugg de re-login
     window.location.reload();
   }
 
@@ -105,8 +113,7 @@ export class UsuarioService implements Resolve<any> {
 
     return this.http.post(url, { token }).pipe(
       map((res: any) => {
-
-        this.guardarStorage(res.id, res.token, res.usuario)
+        this.guardarStorage(res.id, res.token, res.usuario, res.menu)
         return true;
       })
     );
@@ -123,10 +130,13 @@ export class UsuarioService implements Resolve<any> {
     let url = URL_API + "/login";
     return this.http.post(url, usuario).pipe(
       map((res: any) => {
-        this.guardarStorage(res.id, res.token, res.usuario);
+        this.guardarStorage(res.id, res.token, res.usuario, res.menu);
         return true;
-      })
-    );
+      }),
+      // Realiza la peticion 2 veces al menos antes de lanzar el error
+      retry(1),
+      catchError(this.handleErrorLogin)
+      )
   }
 
   // Register
@@ -142,9 +152,11 @@ export class UsuarioService implements Resolve<any> {
           usuario.email,
           'success'
         );
-        this.guardarStorage(res.id, res.token, res.usuario);
+        this.guardarStorage(res.id, res.token, res.usuario, this.menu);
         return res.usuario;
-      }));
+        }),
+      catchError(this.handleErrorRegister)
+      );
   }
 
   // Update profile
@@ -158,7 +170,7 @@ export class UsuarioService implements Resolve<any> {
 
         var usuarioActualizado: Usuario = res.usuario;
         // Guarda el usuario actualizado en el localStorage
-        this.guardarStorage(usuarioActualizado._id, this.token, usuarioActualizado);
+        this.guardarStorage(usuarioActualizado._id, this.token, usuarioActualizado, this.menu);
 
         // Notificacion
         let timerInterval
@@ -200,7 +212,7 @@ export class UsuarioService implements Resolve<any> {
       map((res: any) => {
 
         if (this.usuario._id === usuario._id) {
-          this.guardarStorage(res.usuario._id, this.token, res.usuario)
+          this.guardarStorage(res.usuario._id, this.token, res.usuario, this.menu)
         }
 
         // Notificacion
@@ -242,7 +254,7 @@ export class UsuarioService implements Resolve<any> {
           'success'
         );
 
-        this.guardarStorage(id, this.token, res.usuario);
+        this.guardarStorage(id, this.token, res.usuario, this.menu);
       })
       .catch(err => {
         Swal.fire({
@@ -291,6 +303,49 @@ export class UsuarioService implements Resolve<any> {
 
     return this.http.delete(url);
   }
+
+  /* Handle API errors */
+  handleErrorLogin(error: HttpErrorResponse) {
+
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error['msg']);
+    } else {
+      Swal.fire(
+        '¡Error con sus credenciales!',
+        error.error['msg'],
+        'error');
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend code ${error.status}` );
+    }
+    // return an observable with a user-facing error message
+    return throwError(
+      'Algo malo sucedió; por favor, inténtelo de nuevo más tarde..');
+  };
+
+  handleErrorRegister(error: HttpErrorResponse) {
+
+    console.log(error.error.error['message']);
+
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      Swal.fire(
+        '¡Error al crear usuario!',
+        error.error.error['message'],
+        'error');
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend code ${error.status}` );
+    }
+    // return an observable with a user-facing error message
+    return throwError(
+      'Algo malo sucedió; por favor, inténtelo de nuevo más tarde..');
+  };
 
 
 }

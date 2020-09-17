@@ -32,7 +32,7 @@ export class ModalUploadComponent implements OnInit {
         this._modalUploadService.notificacion.emit(res);
         // Si es el usuario logueado, refresca sus datos
         if (this._usuarioService.usuario._id === this._modalUploadService.id) {
-          this._usuarioService.guardarStorage(this._usuarioService.usuario._id, this._usuarioService.token, res.usuario)
+          this._usuarioService.guardarStorage(this._usuarioService.usuario._id, this._usuarioService.token, res.usuario, this._usuarioService.menu)
         }
         this.cerrarModal();
       })

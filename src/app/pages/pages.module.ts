@@ -28,8 +28,6 @@ import { ModalUploadComponent } from '../components/modal-upload/modal-upload.co
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
-import { UsuarioDialogComponent } from './usuarios/usuario-dialog/usuario-dialog.component';
-import { UsuariosMattableComponent } from './usuarios/usuarios-mattable/usuarios-mattable.component';
 import { HospitalesComponent } from './hospitales/hospitales.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { MedicoFormComponent } from './medicos/medico-form/medico-form.component';
@@ -50,8 +48,6 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
     RxjsComponent,
     ProfileComponent,
     UsuariosComponent,
-    UsuarioDialogComponent,
-    UsuariosMattableComponent,
     ModalUploadComponent,
     HospitalesComponent,
     MedicosComponent,
@@ -79,10 +75,10 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
     Graficas1Component,
   ],
   providers:[
-    
+
   ],
   // Permite mostar bien con Web Components
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
-  
+
 })
 export class PagesModule { }

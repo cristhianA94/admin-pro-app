@@ -21,8 +21,8 @@ export class LoginGuard implements CanActivate {
         icon: 'error',
         title: 'Error',
         text: '¡Acceso denegado!'
-      })
-      this.router.navigate(['/login'])
+      });
+      this.router.navigate(['/login']);
       return false;
     }
   }
