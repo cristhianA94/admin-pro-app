@@ -6,9 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 
 // Modules
-import { PagesModule } from './pages/pages.module';
 import { MaterialModule } from './material.module';
 import { ServiceModule } from './services/service.module';
+import { SharedModule } from './shared/shared.module';
 
 // Components
 import { AppComponent } from './app.component';
@@ -37,15 +37,14 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     MaterialModule,
     // Routes
     AppRoutingModule,
-    // Pages
-    PagesModule,
     // Servicios
     ServiceModule,
     // Alertas
     SweetAlert2Module.forRoot(),
+    SharedModule
   ],
   providers: [
-    
+
   ],
   bootstrap: [AppComponent],
   // Permite mostar bien con Web Components

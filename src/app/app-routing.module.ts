@@ -1,28 +1,25 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
 // Components
 import { LoginComponent } from './login/login.component';
 import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component';
 import { RegisterComponent } from './login/register.component';
+import { PagesComponent } from './pages/pages.component';
+import { LoginGuard } from './services/guards/login.guard';
 
 
 const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  // Carga las rutas hijas de modulo principal (Lazy Load)
+  // TODO (Lazy Load) Carga las rutas hijas de modulo principal
   {
     path: '',
+    component: PagesComponent,
+    canActivate: [LoginGuard],
     loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
   },
-  // Preload
-  /*  {
-     path: 'dashboard',
-     loadChildren: './pages/pages.module#PagesModule',
-     data: { preload: true }
-   }, */
-
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: NopagefoundComponent }
 ];

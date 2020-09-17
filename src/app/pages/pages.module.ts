@@ -48,7 +48,6 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
     RxjsComponent,
     ProfileComponent,
     UsuariosComponent,
-    ModalUploadComponent,
     HospitalesComponent,
     MedicosComponent,
     MedicoFormComponent,
