@@ -23,13 +23,19 @@ import { AdminGuard } from '../services/service.index';
 import { UsuarioService } from '../services/usuario/usuario.service';
 import { MedicoService } from '../services/medico/medico.service';
 import { HospitalService } from '../services/hospital/hospital.service';
+import { VerificaTokenGuard } from '../services/guards/verifica-token.guard';
 
 
 
 const pageRoutes: Routes = [
   // Redirige al componente principal de pages
   // Se utiliza ?data para mandar variables a las rutas
-  { path: 'dashboard', component: DashboardComponent, data: { titulo: 'Dashboard' } },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    data: { titulo: 'Dashboard' },
+    canActivate: [VerificaTokenGuard]
+  },
   { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress' } },
   { path: 'graficas1', component: Graficas1Component, data: { titulo: 'Graficas' } },
   { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' } },

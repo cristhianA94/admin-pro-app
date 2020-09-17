@@ -32,8 +32,8 @@
                 </mat-card-content>
 
                 <mat-card-actions>
-                    <button *ngIf="!medico._id" (click)="guardarMedico(medicoForm)" type="button" mat-raised-button color="primary" class="ml-2 ">Crear</button>
-                    <button *ngIf="medico._id" (click)="actualizarMedico(medicoForm)" type="button" mat-stroked-button color="primary" class="ml-2 ">Actualizar</button>
+                    <button *ngIf="!medico._id" [disabled]="medicoForm.invalid" (click)="guardarMedico(medicoForm)" type="button" mat-raised-button color="primary" class="ml-2 ">Crear</button>
+                    <button *ngIf="medico._id" [disabled]="medicoForm.invalid" (click)="actualizarMedico(medicoForm)" type="button" mat-stroked-button color="primary" class="ml-2 ">Actualizar</button>
                     <button [routerLink]="[ '/medicos'] " mat-raised-button color="warn">Cancelar</button>
                 </mat-card-actions>
             </mat-card>
