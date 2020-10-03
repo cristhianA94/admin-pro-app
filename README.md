@@ -47,7 +47,7 @@ ng s
 
 ## Deployment 📦
 
-[Heroku](https://admin-pro-express.herokuapp.com/)
+[Netlify](https://admin-pro-app.netlify.app/)
 ️
 
 ## Built With ️️🛠️
