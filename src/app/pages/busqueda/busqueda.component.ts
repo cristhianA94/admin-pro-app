@@ -34,7 +34,6 @@ export class BusquedaComponent implements OnInit {
     this.actRoute.params.subscribe((params) => {
       let termino = params.termino;
       this.buscar(termino);
-
     });
   }
 
@@ -45,8 +44,6 @@ export class BusquedaComponent implements OnInit {
       this.usuarios = res.usuarios;
       this.hospitales = res.hospitales;
       this.medicos = res.medicos;
-      console.log(res);
-
     });
   }
 

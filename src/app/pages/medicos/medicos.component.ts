@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { Medico } from '../../models/medico';
 import { MedicoService } from '../../services/service.index';
-import { ModalUploadService } from 'src/app/components/modal-upload/modal-upload.service';
 import Swal from 'sweetalert2';
 
 @Component({
