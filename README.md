@@ -1,27 +1,77 @@
-# AdminPro
+# Front End For Management Hospitals
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
+Front end made with Angular.
 
-## Development server
+- CRUD usuarios/medicos/hospitales a través de un token.
+- Subida de archivos
+- Validación de imágenes
+- Obtener imágenes
+- Paginar resultados
+- Búsqueda general y específica
+- Controladores
+- Custom settings
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Getting Started 🚀
 
-## Code scaffolding
+### Model Relational
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+![BD-relational](https://user-images.githubusercontent.com/24251638/80780356-4e832800-8b34-11ea-93a3-14c80f8dcf75.png)
 
-## Build
+### Prerequisites 📋
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Configuraciones de  se encuentra en:
 
-## Running unit tests
+```
+src/app/config/config.ts
+```
+GoogleAuth KEYS
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Crear ID cliente en: https://console.cloud.google.com/apis/credentials:
+```
+export const CLIENT_ID = "cliendIDGoogle";
+```
 
-## Running end-to-end tests
+### Installing 🔧
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Instalar node modules:
 
-## Further help
+```
+npm install
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Run ▶:
+
+```
+ng s
+```
+
+## Deployment 📦
+
+[Heroku](https://admin-pro-express.herokuapp.com/)
+️
+
+## Built With ️️🛠️
+- [sweetalert2](https://sweetalert2.github.io/) - Notificaciones
+- [Angular Material](https://material.angular.io/) - UX/UI
+
+## Versioning 📌
+
+Last Release [V2.4.0](https://github.com/cristhianA94/admin-pro-app/releases/tag/V2.4.0)
+
+## Authors ️
+
+  **Cristhian Andrés Apolo Cevallos** - [GitHub](https://github.com/cristhianA94/)
+
+## Captures
+
+### Puede testear modo admin logueandose con esta cuenta:
+
+- user: testadmin@test.com
+- pass: 123456
+
+![medicos](https://user-images.githubusercontent.com/24251638/94982355-73266600-04ff-11eb-9b53-8bc19cb38748.jpg)
+![medicoID](https://user-images.githubusercontent.com/24251638/94982358-7588c000-04ff-11eb-8288-bd4638865527.jpg)
+![perfil](https://user-images.githubusercontent.com/24251638/94982361-76b9ed00-04ff-11eb-8fbd-27ba1c73e8df.jpg)
+![usuarios](https://user-images.githubusercontent.com/24251638/94982364-7883b080-04ff-11eb-8fda-bd1a093e91e2.jpg)
+![Busqueda](https://user-images.githubusercontent.com/24251638/94982365-7a4d7400-04ff-11eb-8752-0c8acf507bcc.jpg)
+![Hospitales](https://user-images.githubusercontent.com/24251638/94982366-7b7ea100-04ff-11eb-81bc-c6c974e9c5c5.jpg)
